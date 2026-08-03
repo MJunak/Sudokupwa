@@ -1,5 +1,4 @@
 import { generatePuzzle } from "./sudoku/generator";
-import { peersOf } from "./sudoku/solver";
 import type { Difficulty, Grid } from "./sudoku/types";
 
 export interface GameState {
@@ -27,15 +26,17 @@ export function isGiven(state: GameState, index: number): boolean {
   return state.puzzle[index] !== 0;
 }
 
+/** Flags any player-filled cell that doesn't match the puzzle's unique solution.
+ * A plain "does this clash with a peer" check would miss digits that are locally
+ * valid at the moment they're entered but still wrong - those silently paint the
+ * board into an unsolvable corner later instead of being caught immediately. */
 export function hasConflict(state: GameState, index: number): boolean {
+  if (isGiven(state, index)) return false;
   const value = state.entries[index];
   if (value === 0) return false;
-  return peersOf(index).some((peer) => state.entries[peer] === value);
+  return value !== state.solution[index];
 }
 
-/** A puzzle is solved once every cell is filled without any rule conflicts.
- * Since the generator guarantees a unique solution, that's sufficient - no need
- * to compare against the stored solution cell by cell. */
 export function isSolved(state: GameState): boolean {
   return state.entries.every((value, index) => value !== 0 && !hasConflict(state, index));
 }
