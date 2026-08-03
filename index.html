@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#3a5a9c" />
+    <meta name="description" content="Sudoku zum Spielen ohne Werbung, mit mehreren Schwierigkeitsgraden - installierbar als App." />
+    <title>Sudoku</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <h1>Sudoku</h1>
+        <button id="stats-btn" class="icon-btn" aria-label="Statistik anzeigen" type="button">Statistik</button>
+      </header>
+
+      <div class="toolbar">
+        <label class="difficulty-label">
+          <span>Schwierigkeit</span>
+          <select id="difficulty-select"></select>
+        </label>
+        <button id="new-game-btn" class="btn" type="button">Neues Spiel</button>
+      </div>
+
+      <div class="game-info">
+        <span id="timer" class="timer">0:00</span>
+        <button id="hint-btn" class="btn btn-secondary" type="button">Hinweis</button>
+      </div>
+
+      <div id="board" class="board" role="grid" aria-label="Sudoku-Feld"></div>
+
+      <div id="numpad" class="numpad"></div>
+    </div>
+
+    <div id="win-overlay" class="overlay hidden">
+      <div class="overlay-content">
+        <h2>Geschafft!</h2>
+        <p id="win-time"></p>
+        <button id="win-new-game-btn" class="btn" type="button">Neues Spiel</button>
+      </div>
+    </div>
+
+    <div id="stats-overlay" class="overlay hidden">
+      <div class="overlay-content">
+        <h2>Statistik</h2>
+        <div id="stats-content" class="stats-content"></div>
+        <button id="close-stats-btn" class="btn" type="button">Schließen</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
